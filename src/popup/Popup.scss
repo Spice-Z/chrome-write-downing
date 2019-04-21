@@ -4,6 +4,8 @@ $background-color: #bada55;
 // Chrome applies an 8px margin by default (gross).
 body {
   margin: 0px;
+  width: 500px;
+  height: 700px;
 }
 
 .popupContainer {
@@ -13,7 +15,7 @@ body {
   color: $primary-color;
   display: flex;
   font-size: 20px;
-  height: 75px;
+  height: 60px;
   justify-content: center;
-  width: 150px;
+  width:100%;
 }
