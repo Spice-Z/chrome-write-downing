@@ -3,5 +3,16 @@ import * as React from "react";
 interface MemoAreaProps {}
 
 export const MemoArea = (props: MemoAreaProps) => {
-  return <textarea name="memo" id="1" cols={30} rows={10} />;
+  const [text, updateText] = React.useState("");
+  const handleUpdateText = React.useCallback(
+    e => {
+      console.log('updated');
+      if (text !== e.target.value) {
+        updateText(e.target.value);
+      }
+    },
+    [updateText]
+  );
+
+  return <textarea name="memo" value={text} onChange={handleUpdateText} />;
 };
