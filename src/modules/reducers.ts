@@ -35,19 +35,3 @@ const memos = (state = initialState.memos, action): MemosState["memos"] => {
 const memosApp = combineReducers({ currentMemo, memos });
 
 export default memosApp;
-
-// export default function reducer(
-//   state: MemosState = initialState,
-//   action: Action | MemoActions
-// ): MemosState {
-//   switch (action.type) {
-//     case ActionNames.CHANGE_CURRENT_MEMO:
-//     return {currentMemo: state.currentMemo, memos: [...state.memos]}
-//     case ActionNames.ADD:
-//       return { currentMemo: state.currentMemo, memos: [...state.memos] };
-//     case ActionNames.DELETE:
-//       return { currentMemo: state.currentMemo, memos: [] };
-//     default:
-//       return state;
-//   }
-// }
