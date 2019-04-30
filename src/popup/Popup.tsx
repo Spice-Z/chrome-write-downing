@@ -5,8 +5,8 @@ import { SwitchTab } from "../components/SwitchTab/SwitchTab";
 
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { MemoContents, DeleteMemo, AddMemo } from "../modules/memo";
-import { ReduxAction, ReduxState } from "./store";
+import { MemoContents, DeleteMemo, AddMemo } from "../modules/actions";
+import { ReduxAction, ReduxState } from "../modules/store";
 
 export class ActionDispatcher {
   constructor(private dispatch: (action: ReduxAction) => void) {}
