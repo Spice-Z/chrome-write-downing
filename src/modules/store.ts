@@ -1,4 +1,4 @@
-import {MemoActions, AddMemo} from './actions'
+import {MemosActions, AddMemo} from './actions'
 import {createStore, Action} from 'redux'
 import memosApp, { MemosState } from './reducers';
 
@@ -12,9 +12,6 @@ export type ReduxState = {
   memoList : MemosState
 }
 
-export type ReduxAction = MemoActions | Action
-
-
-
+export type ReduxAction = MemosActions | Action
 
 export default store

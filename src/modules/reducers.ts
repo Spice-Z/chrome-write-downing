@@ -1,5 +1,5 @@
-import { MemoContents, MemoActions, ActionNames } from "./actions";
-import { Action, combineReducers } from "redux";
+import { MemoContents, ActionNames, MemosActions } from "./actions";
+import { combineReducers } from "redux";
 
 export interface MemosState {
   currentMemo: number | undefined;
@@ -11,22 +11,48 @@ const initialState: MemosState = {
   memos: []
 };
 
-const currentMemo = (state = initialState.currentMemo,): MemosState["currentMemo"] => {
+const currentMemo = (
+  state = initialState.currentMemo,
+  action: MemosActions
+): MemosState["currentMemo"] => {
   if (typeof state === "undefined") {
-    return initialState.currentMemo;
+    return state;
   }
 
-  return state;
+  return action.payload["id"]
 };
 
-const memos = (state = initialState.memos, action): MemosState["memos"] => {
+const replaceMemo = (
+  state: MemoContents[],
+  memo: MemoContents
+): MemoContents[] => {
+  return state.map(el => {
+    if (el.id === memo.id) {
+      return memo;
+    }
+    return el;
+  });
+};
+
+const deleteMemo = (state: MemoContents[], id: MemoContents["id"]) => {
+  return state.map(el => {
+    if (el.id !== id) {
+      return el;
+    }
+  });
+};
+
+const memos = (
+  state = initialState.memos,
+  action: MemosActions
+): MemosState["memos"] => {
   switch (action.type) {
     case ActionNames.ADD:
-      return state ;
+      return state.concat(action.payload.MemoContents);
     case ActionNames.EDIT:
-      return [...state] ;
+      return replaceMemo(state, action.payload.MemoContents);
     case ActionNames.DELETE:
-      return [...state] ;
+      return deleteMemo(state, action.payload.memoId);
     default:
       return state;
   }

@@ -22,14 +22,14 @@ interface ChangeCurrentMemoAction extends Action {
 interface AddAction extends Action {
   type: ActionNames.ADD;
   payload: {
-    MemoContents;
+    MemoContents:MemoContents;
   };
 }
 
 interface EditAction extends Action {
   type: ActionNames.EDIT;
   payload: {
-    MemoContents;
+    MemoContents:MemoContents;
   };
 }
 
@@ -70,7 +70,7 @@ export const DeleteMemo = (memoId: number): DeleteAction => ({
   }
 });
 
-export type MemoActions =
+export type MemosActions =
   | ChangeCurrentMemoAction
   | AddAction
   | EditAction
