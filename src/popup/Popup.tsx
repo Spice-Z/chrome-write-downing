@@ -3,23 +3,6 @@ import "./Popup.scss";
 import { MemoArea } from "../components/MemoArea/MemoArea";
 import { SwitchTab } from "../components/SwitchTab/SwitchTab";
 
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { MemoContents, DeleteMemo, AddMemo } from "../modules/actions";
-import { ReduxAction, ReduxState } from "../modules/store";
-
-export class ActionDispatcher {
-  constructor(private dispatch: (action: ReduxAction) => void) {}
-
-  public increment(memo: MemoContents) {
-    this.dispatch(AddMemo(memo));
-  }
-
-  public decrement(memoId: number) {
-    this.dispatch(DeleteMemo(memoId));
-  }
-}
-
 export const Popup = () => {
   React.useEffect(() => {
     chrome.runtime.sendMessage({ popupMounted: true });
@@ -32,10 +15,3 @@ export const Popup = () => {
     </>
   );
 };
-
-export default connect(
-  (state: ReduxState) => ({ value: state.memoList }),
-  (dispatch: Dispatch<ReduxAction>) => ({
-    actions: new ActionDispatcher(dispatch)
-  })
-)(Popup);
