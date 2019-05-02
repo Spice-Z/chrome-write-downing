@@ -8,18 +8,18 @@ export interface MemosState {
 
 const initialState: MemosState = {
   currentMemo: null,
-  memos: []
+  memos: [{ id: 1, text: "memoの文章ワッソ" }]
 };
 
 const currentMemo = (
   state = initialState.currentMemo,
   action: MemosActions
 ): MemosState["currentMemo"] => {
-  if (typeof state === "undefined") {
-    return state;
-  }
+  // if (typeof state === "undefined") {
+  //   return state;
+  // }
 
-  return action.payload["id"]
+  return 1;
 };
 
 const replaceMemo = (

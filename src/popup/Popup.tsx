@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./Popup.scss";
-import { MemoArea } from "../components/MemoArea/MemoArea";
 import { SwitchTab } from "../components/SwitchTab/SwitchTab";
+import MemoAreaContainer from "../container/MemoAreaContainer";
 
 export const Popup = () => {
   React.useEffect(() => {
@@ -10,8 +10,7 @@ export const Popup = () => {
   return (
     <>
       <SwitchTab />
-      <div className="popupContainer">Hello, world! with Hooks. </div>
-      <MemoArea />
+      <MemoAreaContainer />
     </>
   );
 };

@@ -3,15 +3,15 @@ import {createStore, Action} from 'redux'
 import memosApp, { MemosState } from './reducers';
 
 const store = createStore(memosApp)
-console.log(store.getState());
-const unsubscribe = store.subscribe(() => {console.log(store.getState())})
-store.dispatch(AddMemo({id:0,text:"a"}))
-unsubscribe()
+// console.log(store.getState());
+// const unsubscribe = store.subscribe(() => {console.log(store.getState())})
+// store.dispatch(AddMemo({id:0,text:"a"}))
+// unsubscribe()
 
-export type ReduxState = {
-  memoList : MemosState
-}
+// export type ReduxState = {
+//   memoList : MemosState
+// }
 
-export type ReduxAction = MemosActions | Action
+// export type ReduxAction = MemosActions | Action
 
 export default store

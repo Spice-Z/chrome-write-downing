@@ -1,9 +1,11 @@
 import * as React from "react";
 
-interface MemoAreaProps {}
+interface MemoAreaProps {
+  text: string
+}
 
 export const MemoArea = (props: MemoAreaProps) => {
-  const [text, updateText] = React.useState("");
+  const [text, updateText] = React.useState(props.text);
   const handleUpdateText = React.useCallback(
     e => {
       console.log('updated');
