@@ -31,7 +31,7 @@ const currentMemo = (
   }
 };
 
-const replaceMemo = (
+const editMemo = (
   state: MemoContents[],
   memo: MemoContents
 ): MemoContents[] => {
@@ -59,7 +59,7 @@ const memos = (
     case ActionNames.ADD:
       return state.concat(action.payload.MemoContents);
     case ActionNames.EDIT:
-      return replaceMemo(state, action.payload.MemoContents);
+      return editMemo(state, action.payload.MemoContents);
     case ActionNames.DELETE:
       return deleteMemo(state, action.payload.memoId);
     default:

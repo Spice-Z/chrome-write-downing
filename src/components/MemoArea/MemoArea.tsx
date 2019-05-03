@@ -4,6 +4,7 @@ import { MemoContents } from "../../modules/actions";
 
 export interface MemoAreaProps {
   currentMemo: MemoContents;
+  updateCurrentMemo(currentMemo: MemoContents): void;
 }
 
 const StyledMemoArea = styled.textarea`
@@ -13,10 +14,14 @@ const StyledMemoArea = styled.textarea`
 
 export const MemoArea = (props: MemoAreaProps) => {
   const [text, updateText] = React.useState(props.currentMemo.text);
-  React.useEffect (() => {
+  const [id, updateId] = React.useState(props.currentMemo.id);
+  React.useEffect(() => {
+    if (props.currentMemo.id !== id && props.currentMemo.text !== text) {
+      props.updateCurrentMemo({ id, text });
+    }
+    updateId(props.currentMemo.id);
     updateText(props.currentMemo.text);
-  },
-  [props.currentMemo]);
+  }, [props.currentMemo]);
 
   const handleUpdateText = React.useCallback(
     e => {
@@ -24,10 +29,8 @@ export const MemoArea = (props: MemoAreaProps) => {
         updateText(e.target.value);
       }
     },
-    [props.currentMemo, updateText]
+    [updateText]
   );
 
-  return (
-    <StyledMemoArea name="memo" value={text} onChange={handleUpdateText} />
-  );
+  return <StyledMemoArea value={text} onChange={handleUpdateText} />;
 };
