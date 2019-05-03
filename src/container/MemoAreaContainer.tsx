@@ -1,16 +1,11 @@
 import { connect } from "react-redux";
-import { MemoArea } from "../components/MemoArea/MemoArea";
+import { MemoArea, MemoAreaProps } from "../components/MemoArea/MemoArea";
 import { MemosState } from "../modules/reducers";
+import { getCurrentMemo } from "../modules/selectors";
 
-const currentMemoText = (state: MemosState): string => {
-  return state.currentMemo !== undefined
-    ? state.memos[state.currentMemo].text
-    : "あああ";
-};
-
-const MemoAreaContainer = connect((state: MemosState, ownProps) => {
+const MemoAreaContainer = connect((state:MemosState, ownProps):MemoAreaProps => {
   return {
-    text: currentMemoText(state)
+    currentMemo: getCurrentMemo(state)
   };
 })(MemoArea);
 
