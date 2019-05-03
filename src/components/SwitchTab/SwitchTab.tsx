@@ -9,14 +9,25 @@ export interface SwitchTabProps {
   handleClickAddMemo(id: number): void;
 }
 
+const SwitchTabContainer = styled.div`
+  margin: 10px 0;
+`;
+
 const SwitchTabSpan = styled.span`
   display: inline-block;
-  padding: 10px;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border: 2px #292929 solid;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align:middle;
   color: #292929;
 `;
 
 const SwitchTabSpanSelected = styled(SwitchTabSpan)`
   background: #292929;
+  border: none;
   color: #f8f8f8;
 `;
 
@@ -29,9 +40,9 @@ export const SwitchTab = (props: SwitchTabProps) => {
   };
 
   return (
-    <div>
+    <SwitchTabContainer>
       <SwitchTabSpan onClick={e => handleClickAddMemo(e)}>
-        [[ADD]]
+        [[+]]
       </SwitchTabSpan>
       {props.MemoIdList.map(el => {
         if (el === props.currentMemo.id) {
@@ -43,6 +54,6 @@ export const SwitchTab = (props: SwitchTabProps) => {
           </SwitchTabSpan>
         );
       })}
-    </div>
+    </SwitchTabContainer>
   );
 };
