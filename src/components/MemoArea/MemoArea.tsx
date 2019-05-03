@@ -1,14 +1,19 @@
 import * as React from "react";
+import styled from "styled-components";
 
 interface MemoAreaProps {
-  text: string
+  text: string;
 }
+
+const StyledMemoArea = styled.textarea`
+  width: 300px;
+  height: 500px;
+`;
 
 export const MemoArea = (props: MemoAreaProps) => {
   const [text, updateText] = React.useState(props.text);
   const handleUpdateText = React.useCallback(
     e => {
-      console.log('updated');
       if (text !== e.target.value) {
         updateText(e.target.value);
       }
@@ -16,5 +21,7 @@ export const MemoArea = (props: MemoAreaProps) => {
     [updateText]
   );
 
-  return <textarea name="memo" value={text} onChange={handleUpdateText} />;
+  return (
+    <StyledMemoArea name="memo" value={text} onChange={handleUpdateText} />
+  );
 };

@@ -2,6 +2,7 @@ import * as React from "react";
 import "./Popup.scss";
 import { SwitchTab } from "../components/SwitchTab/SwitchTab";
 import MemoAreaContainer from "../container/MemoAreaContainer";
+import SwitchTabContainer from "../container/SwitchTabContainer";
 
 export const Popup = () => {
   React.useEffect(() => {
@@ -9,7 +10,7 @@ export const Popup = () => {
   });
   return (
     <>
-      <SwitchTab />
+      <SwitchTabContainer />
       <MemoAreaContainer />
     </>
   );

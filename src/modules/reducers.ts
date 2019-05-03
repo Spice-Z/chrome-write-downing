@@ -7,19 +7,29 @@ export interface MemosState {
 }
 
 const initialState: MemosState = {
-  currentMemo: null,
-  memos: [{ id: 1, text: "memoの文章ワッソ" }]
+  currentMemo: 0,
+  memos: [
+    { id: 0, text: "あめんぼあかいお、あいうえお" },
+    { id: 1, text: "こんこんこんちゃ" },
+    { id: 2, text: "こんばんは" },
+    { id: 3, text: "さようなら" }
+  ]
 };
 
 const currentMemo = (
   state = initialState.currentMemo,
   action: MemosActions
 ): MemosState["currentMemo"] => {
-  // if (typeof state === "undefined") {
-  //   return state;
-  // }
+  switch (action.type) {
+    case ActionNames.CHANGE_CURRENT_MEMO:
+      if (typeof state === "undefined") {
+        return 0;
+      }
 
-  return 1;
+      return state;
+    default:
+      return 0;
+  }
 };
 
 const replaceMemo = (
