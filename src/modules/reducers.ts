@@ -23,12 +23,11 @@ const currentMemo = (
   switch (action.type) {
     case ActionNames.CHANGE_CURRENT_MEMO:
       if (typeof state === "undefined") {
-        return 0;
+        return state;
       }
-
-      return state;
+      return action.payload.id;
     default:
-      return 0;
+      return state;
   }
 };
 
