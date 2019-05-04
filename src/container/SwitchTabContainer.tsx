@@ -22,9 +22,9 @@ interface StateFromProps {
   MemoIdList: number[];
 }
 
-function mapDispatchToProps(
+const mapDispatchToProps = (
   dispatch: Dispatch<MemosActions>
-): DispatchFromProps {
+): DispatchFromProps => {
   return {
     handleClickChangeCurrentMemo: id => {
       dispatch(changeCurrentMemo(id));
@@ -37,14 +37,14 @@ function mapDispatchToProps(
       dispatch(ArrangeMemo());
     }
   };
-}
+};
 
-function mapStateToProps(state: MemosState): StateFromProps {
+const mapStateToProps = (state: MemosState): StateFromProps => {
   return {
     currentMemo: getCurrentMemo(state),
     MemoIdList: getMemoIdList(state)
   };
-}
+};
 
 const SwitchTabContainer = connect<StateFromProps, DispatchFromProps, {}>(
   mapStateToProps,
