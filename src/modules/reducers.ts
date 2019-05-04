@@ -8,12 +8,7 @@ export interface MemosState {
 
 const initialState: MemosState = {
   currentMemo: 0,
-  memos: [
-    { id: 0, text: "あめんぼあかいお、あいうえお" },
-    { id: 1, text: "こんこんこんちゃ" },
-    { id: 2, text: "こんばんは" },
-    { id: 3, text: "さようなら" }
-  ]
+  memos: [{ id: 0, text: "" }]
 };
 
 const currentMemo = (
@@ -44,20 +39,27 @@ const editMemo = (
 };
 
 const deleteMemo = (state: MemoContents[], id: MemoContents["id"]) => {
-  return state.map(el => {
-    if (el.id !== id) {
-      return el;
-    }
-  });
+  console.log("delteMemoReducer");
+  if (state.length === 1) {
+    return initialState.memos;
+  }
+
+  return state
+    .map(el => {
+      if (el.id !== id) {
+        return el;
+      }
+    })
+    .filter(el => el !== undefined);
 };
 
 const ArrangeMemo = (state: MemoContents[]) => {
-  return state.map((el,index) => {
-    return { id: index, text : el.text }
-  }
-  )
-}
-
+  console.log("ArrangeMemoReducer");
+  console.log(state);
+  return state.map((el, index) => {
+    return { id: index, text: el.text };
+  });
+};
 
 const memos = (
   state = initialState.memos,

@@ -5,14 +5,17 @@ import {
   changeCurrentMemo,
   MemosActions,
   MemoContents,
-  AddMemo
+  AddMemo,
+  DeleteMemo,
+  ArrangeMemo
 } from "../modules/actions";
 import { getCurrentMemo, getMemoIdList } from "../modules/selectors";
 import { Dispatch } from "react";
 
 interface DispatchFromProps {
   handleClickChangeCurrentMemo: (id: number) => void;
-  handleClickAddMemo: (id:number) => void;
+  handleClickAddMemo: (id: number) => void;
+  handleClickDeleteMemo: (id: number) => void;
 }
 interface StateFromProps {
   currentMemo: MemoContents;
@@ -26,8 +29,12 @@ function mapDispatchToProps(
     handleClickChangeCurrentMemo: id => {
       dispatch(changeCurrentMemo(id));
     },
-    handleClickAddMemo: (id) => {
+    handleClickAddMemo: id => {
       dispatch(AddMemo({ id: id, text: "" }));
+    },
+    handleClickDeleteMemo: id => {
+      dispatch(DeleteMemo(id));
+      dispatch(ArrangeMemo());
     }
   };
 }
@@ -39,7 +46,7 @@ function mapStateToProps(state: MemosState): StateFromProps {
   };
 }
 
-const SwitchTabContainer = connect<StateFromProps, DispatchFromProps,{}>(
+const SwitchTabContainer = connect<StateFromProps, DispatchFromProps, {}>(
   mapStateToProps,
   mapDispatchToProps
 )(SwitchTab);
