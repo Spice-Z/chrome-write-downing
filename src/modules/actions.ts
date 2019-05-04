@@ -4,7 +4,8 @@ export enum ActionNames {
   CHANGE_CURRENT_MEMO = "memo/change/current",
   ADD = "memo/add",
   EDIT = "memo.edit",
-  DELETE = "memo/delete"
+  DELETE = "memo/delete",
+  ARRANGE = "memo/arange"
 }
 
 export interface MemoContents {
@@ -40,6 +41,10 @@ interface DeleteAction extends Action {
   };
 }
 
+interface ArrangeAction extends Action {
+  type: ActionNames.ARRANGE;
+}
+
 export const changeCurrentMemo = (
   id: MemoContents["id"]
 ): ChangeCurrentMemoAction => {
@@ -72,8 +77,13 @@ export const DeleteMemo = (memoId: number): DeleteAction => ({
   }
 });
 
+export const ArrangeMemo = (): ArrangeAction => ({
+  type: ActionNames.ARRANGE
+});
+
 export type MemosActions =
   | ChangeCurrentMemoAction
   | AddAction
   | EditAction
-  | DeleteAction;
+  | DeleteAction
+  | ArrangeAction;

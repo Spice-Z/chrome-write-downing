@@ -51,6 +51,14 @@ const deleteMemo = (state: MemoContents[], id: MemoContents["id"]) => {
   });
 };
 
+const ArrangeMemo = (state: MemoContents[]) => {
+  return state.map((el,index) => {
+    return { id: index, text : el.text }
+  }
+  )
+}
+
+
 const memos = (
   state = initialState.memos,
   action: MemosActions
@@ -62,6 +70,8 @@ const memos = (
       return editMemo(state, action.payload.MemoContents);
     case ActionNames.DELETE:
       return deleteMemo(state, action.payload.memoId);
+    case ActionNames.ARRANGE:
+      return ArrangeMemo(state);
     default:
       return state;
   }
