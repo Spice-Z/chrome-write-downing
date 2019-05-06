@@ -11,21 +11,6 @@ const initialState: MemosState = {
   memos: [{ id: 0, text: "" }]
 };
 
-const currentMemo = (
-  state = initialState.currentMemo,
-  action: MemosActions
-): MemosState["currentMemo"] => {
-  switch (action.type) {
-    case ActionNames.CHANGE_CURRENT_MEMO:
-      if (typeof state === "undefined") {
-        return state;
-      }
-      return action.payload.id;
-    default:
-      return state;
-  }
-};
-
 const editMemo = (
   state: MemoContents[],
   memo: MemoContents
@@ -38,47 +23,49 @@ const editMemo = (
   });
 };
 
-const deleteMemo = (state: MemoContents[], id: MemoContents["id"]) => {
-  console.log("delteMemoReducer");
-  if (state.length === 1) {
-    return initialState.memos;
-  }
-
-  return state
-    .map(el => {
-      if (el.id !== id) {
-        return el;
-      }
-    })
-    .filter(el => el !== undefined);
-};
-
-const ArrangeMemo = (state: MemoContents[]) => {
-  console.log("ArrangeMemoReducer");
-  console.log(state);
+const arrangeMemo = (state: MemoContents[]) => {
   return state.map((el, index) => {
     return { id: index, text: el.text };
   });
 };
 
-const memos = (
-  state = initialState.memos,
-  action: MemosActions
-): MemosState["memos"] => {
+const deleteMemo = (state = initialState, id: number): MemosState => {
+  const currentMemo = state.currentMemo > 1 ? state.currentMemo - 1 : 0;
+  const memos = arrangeMemo(
+    state.memos
+      .map(el => {
+        if (el.id !== id) {
+          return el;
+        }
+      })
+      .filter(el => el !== undefined)
+  );
+
+  if (memos.length === 0) {
+    return initialState;
+  }
+  return { currentMemo, memos };
+};
+
+const memosApp = (state = initialState, action: MemosActions): MemosState => {
   switch (action.type) {
     case ActionNames.ADD:
-      return state.concat(action.payload.MemoContents);
+      return {
+        ...state,
+        memos: state.memos.concat(action.payload.MemoContents)
+      };
     case ActionNames.EDIT:
-      return editMemo(state, action.payload.MemoContents);
+      return {
+        ...state,
+        memos: editMemo(state.memos, action.payload.MemoContents)
+      };
     case ActionNames.DELETE:
       return deleteMemo(state, action.payload.memoId);
-    case ActionNames.ARRANGE:
-      return ArrangeMemo(state);
+    case ActionNames.CHANGE_CURRENT_MEMO:
+      return { ...state, currentMemo: action.payload.id };
     default:
       return state;
   }
 };
-
-const memosApp = combineReducers({ currentMemo, memos });
 
 export default memosApp;

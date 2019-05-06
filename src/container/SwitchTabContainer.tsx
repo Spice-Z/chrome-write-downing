@@ -7,7 +7,6 @@ import {
   MemoContents,
   AddMemo,
   DeleteMemo,
-  ArrangeMemo
 } from "../modules/actions";
 import { getCurrentMemo, getMemoIdList } from "../modules/selectors";
 import { Dispatch } from "react";
@@ -34,7 +33,6 @@ const mapDispatchToProps = (
     },
     handleClickDeleteMemo: id => {
       dispatch(DeleteMemo(id));
-      dispatch(ArrangeMemo());
     }
   };
 };
