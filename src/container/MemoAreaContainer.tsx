@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 import { MemoArea, MemoAreaProps } from "../components/MemoArea/MemoArea";
 import { MemosState } from "../modules/reducers";
-import { getCurrentMemo } from "../modules/selectors";
+import { getCurrentMemo, getIsAfterDeleteAction } from "../modules/selectors";
 import { Dispatch } from "react";
 import { MemosActions, MemoContents, EditMemo } from "../modules/actions";
 
 interface StateFromProps {
   currentMemo: MemoContents;
+  isAfterDeleteAction: boolean;
 }
 interface DispatchFromProps {
   updateCurrentMemo: (memo: MemoContents) => void;
@@ -14,7 +15,8 @@ interface DispatchFromProps {
 
 const mapStateToProps = (state: MemosState): StateFromProps => {
   return {
-    currentMemo: getCurrentMemo(state)
+    currentMemo: getCurrentMemo(state),
+    isAfterDeleteAction: getIsAfterDeleteAction(state)
   };
 };
 

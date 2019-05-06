@@ -4,6 +4,7 @@ import { MemoContents } from "../../modules/actions";
 
 export interface MemoAreaProps {
   currentMemo: MemoContents;
+  isAfterDeleteAction: boolean;
   updateCurrentMemo(currentMemo: MemoContents): void;
 }
 
@@ -16,7 +17,11 @@ export const MemoArea = (props: MemoAreaProps) => {
   const [text, updateText] = React.useState(props.currentMemo.text);
   const [id, updateId] = React.useState(props.currentMemo.id);
   React.useEffect(() => {
-    if (props.currentMemo.id !== id && props.currentMemo.text !== text) {
+    if (
+      props.currentMemo.id !== id &&
+      props.currentMemo.text !== text &&
+      !props.isAfterDeleteAction
+    ) {
       props.updateCurrentMemo({ id, text });
     }
     updateId(props.currentMemo.id);
