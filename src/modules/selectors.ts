@@ -9,3 +9,7 @@ export const getMemoIdList = (state: MemosState) => {
     return el.id;
   });
 };
+
+export const getIsAfterDeleteAction = (state: MemosState) => {
+  return state.isAfterDeleteAction;
+};
