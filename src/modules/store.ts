@@ -1,7 +1,6 @@
-import {MemosActions, AddMemo} from './actions'
-import {createStore, Action} from 'redux'
-import memosApp, { MemosState } from './reducers';
+import { createStore } from "redux";
+import memosApp from "./reducers";
 
-const store = createStore(memosApp)
+const store = createStore(memosApp);
 
-export default store
+export default store;
