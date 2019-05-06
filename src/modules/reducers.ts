@@ -1,5 +1,4 @@
 import { MemoContents, ActionNames, MemosActions } from "./actions";
-import { combineReducers } from "redux";
 
 export interface MemosState {
   currentMemo: number | undefined;
