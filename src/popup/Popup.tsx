@@ -9,7 +9,7 @@ interface PopupProps {
 
 export const Popup = (props: PopupProps) => {
   React.useEffect(() => {
-    //
+    chrome.storage.local.set({ memos: props.memos });
   }, [props.memos]);
   return (
     <>
