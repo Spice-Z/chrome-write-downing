@@ -1,11 +1,16 @@
 import * as React from "react";
 import MemoAreaContainer from "../container/MemoAreaContainer";
 import SwitchTabContainer from "../container/SwitchTabContainer";
+import { MemoContents } from "../modules/actions";
 
-export const Popup = () => {
+interface PopupProps {
+  memos: MemoContents[];
+}
+
+export const Popup = (props: PopupProps) => {
   React.useEffect(() => {
-    chrome.runtime.sendMessage({ popupMounted: true });
-  });
+    //
+  }, [props.memos]);
   return (
     <>
       <SwitchTabContainer />
