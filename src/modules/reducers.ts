@@ -4,11 +4,13 @@ import { combineReducers } from "redux";
 export interface MemosState {
   currentMemo: number | undefined;
   memos: MemoContents[];
+  isAfterDeleteAction: boolean;
 }
 
 const initialState: MemosState = {
   currentMemo: 0,
-  memos: [{ id: 0, text: "" }]
+  memos: [{ id: 0, text: "" }],
+  isAfterDeleteAction: false
 };
 
 const editMemo = (
@@ -44,7 +46,7 @@ const deleteMemo = (state = initialState, id: number): MemosState => {
   if (memos.length === 0) {
     return initialState;
   }
-  return { currentMemo, memos };
+  return { currentMemo, memos, isAfterDeleteAction: true };
 };
 
 const memosApp = (state = initialState, action: MemosActions): MemosState => {
@@ -52,17 +54,23 @@ const memosApp = (state = initialState, action: MemosActions): MemosState => {
     case ActionNames.ADD:
       return {
         ...state,
-        memos: state.memos.concat(action.payload.MemoContents)
+        memos: state.memos.concat(action.payload.MemoContents),
+        isAfterDeleteAction: false
       };
     case ActionNames.EDIT:
       return {
         ...state,
-        memos: editMemo(state.memos, action.payload.MemoContents)
+        memos: editMemo(state.memos, action.payload.MemoContents),
+        isAfterDeleteAction: false
       };
     case ActionNames.DELETE:
       return deleteMemo(state, action.payload.memoId);
     case ActionNames.CHANGE_CURRENT_MEMO:
-      return { ...state, currentMemo: action.payload.id };
+      return {
+        ...state,
+        currentMemo: action.payload.id,
+        isAfterDeleteAction: false
+      };
     default:
       return state;
   }
