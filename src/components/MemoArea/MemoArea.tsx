@@ -11,6 +11,7 @@ export interface MemoAreaProps {
 const StyledMemoArea = styled.textarea`
   width: 300px;
   height: 500px;
+  font-size: 16px;
 `;
 
 export const MemoArea = (props: MemoAreaProps) => {
