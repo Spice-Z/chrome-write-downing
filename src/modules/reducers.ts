@@ -4,12 +4,14 @@ export interface MemosState {
   currentMemo: number | undefined;
   memos: MemoContents[];
   isAfterDeleteAction: boolean;
+  isFetchMemoState: boolean;
 }
 
 const initialState: MemosState = {
   currentMemo: 0,
   memos: [{ id: 0, text: "" }],
-  isAfterDeleteAction: false
+  isAfterDeleteAction: false,
+  isFetchMemoState: false
 };
 
 const editMemo = (
@@ -45,7 +47,12 @@ const deleteMemo = (state = initialState, id: number): MemosState => {
   if (memos.length === 0) {
     return initialState;
   }
-  return { currentMemo, memos, isAfterDeleteAction: true };
+  return {
+    currentMemo,
+    memos,
+    isAfterDeleteAction: true,
+    isFetchMemoState: false
+  };
 };
 
 const memosApp = (state = initialState, action: MemosActions): MemosState => {
@@ -69,6 +76,18 @@ const memosApp = (state = initialState, action: MemosActions): MemosState => {
         ...state,
         currentMemo: action.payload.id,
         isAfterDeleteAction: false
+      };
+    case ActionNames.FETCH_MEMO:
+      return {
+        ...state,
+        isFetchMemoState: action.payload.isFetching,
+        isAfterDeleteAction: false
+      };
+    case ActionNames.INITIALIZE_MEMO:
+      return {
+        ...state,
+        isAfterDeleteAction: false,
+        memos: action.payload.MemoContents
       };
     default:
       return state;

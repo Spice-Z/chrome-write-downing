@@ -1,16 +1,35 @@
 import { Action } from "redux";
+import { fetchMemoFromLocalstorage } from "./apiClient";
 
+// actionの種類を定義
 export enum ActionNames {
   CHANGE_CURRENT_MEMO = "memo/change/current",
   ADD = "memo/add",
   EDIT = "memo.edit",
   DELETE = "memo/delete",
-  ARRANGE = "memo/arange"
+  ARRANGE = "memo/arange",
+  INITIALIZE_MEMO = "memo/initialize",
+  FETCH_MEMO = "memo/fetch/fetch",
+  FETCH_MEMO_SUCESS = "memo/fetch/success"
 }
 
 export interface MemoContents {
   id: number;
   text: string;
+}
+
+interface InitializeMemoAction {
+  type: ActionNames.INITIALIZE_MEMO;
+  payload: {
+    MemoContents: MemoContents[];
+  };
+}
+
+interface FetchMemoAction {
+  type: ActionNames.FETCH_MEMO;
+  payload: {
+    isFetching: boolean;
+  };
 }
 
 interface ChangeCurrentMemoAction extends Action {
@@ -81,9 +100,48 @@ export const ArrangeMemo = (): ArrangeAction => ({
   type: ActionNames.ARRANGE
 });
 
+export const FetchMemo = (isFetching: boolean): FetchMemoAction => {
+  console.log("start or fetch memo");
+  console.log(isFetching);
+  return {
+    type: ActionNames.FETCH_MEMO,
+    payload: {
+      isFetching
+    }
+  };
+};
+
+export const initializeMemo = (
+  MemoContents: MemoContents[]
+): InitializeMemoAction => {
+  console.log("initializing");
+  return {
+    type: ActionNames.INITIALIZE_MEMO,
+    payload: {
+      MemoContents
+    }
+  };
+};
+
+export const makeMemoFromStorage = () => {
+  return function(dispatch) {
+    console.log("fetch is success?");
+    dispatch(FetchMemo(true));
+
+    return fetchMemoFromLocalstorage().then((result: MemoContents[]) => {
+      console.log("fetch is success?");
+      console.log(result);
+      dispatch(initializeMemo(result));
+      dispatch(FetchMemo(false));
+    });
+  };
+};
+
 export type MemosActions =
   | ChangeCurrentMemoAction
   | AddAction
   | EditAction
   | DeleteAction
-  | ArrangeAction;
+  | ArrangeAction
+  | FetchMemoAction
+  | InitializeMemoAction;
