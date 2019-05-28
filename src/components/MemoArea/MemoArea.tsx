@@ -15,8 +15,8 @@ const StyledMemoArea = styled.textarea`
 `;
 
 export const MemoArea = (props: MemoAreaProps) => {
-  const [text, updateText] = React.useState(props.currentMemo.text);
-  const [id, updateId] = React.useState(props.currentMemo.id);
+  const [text, setText] = React.useState(props.currentMemo.text);
+  const [id, setId] = React.useState(props.currentMemo.id);
   React.useEffect(() => {
     if (
       props.currentMemo.id !== id &&
@@ -25,17 +25,15 @@ export const MemoArea = (props: MemoAreaProps) => {
     ) {
       props.updateCurrentMemo({ id, text });
     }
-    updateId(props.currentMemo.id);
-    updateText(props.currentMemo.text);
+    setId(props.currentMemo.id);
+    setText(props.currentMemo.text);
   }, [props.currentMemo]);
 
   const handleUpdateText = React.useCallback(
     e => {
-      if (text !== e.target.value) {
-        updateText(e.target.value);
-      }
+      setText(e.target.value);
     },
-    [updateText]
+    [setText]
   );
 
   return <StyledMemoArea value={text} onChange={handleUpdateText} />;
