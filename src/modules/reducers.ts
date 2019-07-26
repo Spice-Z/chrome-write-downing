@@ -5,13 +5,15 @@ export interface MemosState {
   memos: MemoContents[];
   isAfterDeleteAction: boolean;
   isFetchMemoState: boolean;
+  isSaveMemoState: boolean;
 }
 
 const initialState: MemosState = {
   currentMemo: 0,
   memos: [{ id: 0, text: "" }],
   isAfterDeleteAction: false,
-  isFetchMemoState: false
+  isFetchMemoState: false,
+  isSaveMemoState: false,
 };
 
 const editMemo = (
@@ -51,7 +53,8 @@ const deleteMemo = (state = initialState, id: number): MemosState => {
     currentMemo,
     memos,
     isAfterDeleteAction: true,
-    isFetchMemoState: false
+    isFetchMemoState: false,
+    isSaveMemoState: false,
   };
 };
 

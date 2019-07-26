@@ -102,7 +102,7 @@ export const ArrangeMemo = (): ArrangeAction => ({
 
 export const FetchMemo = (isFetching: boolean): FetchMemoAction => {
   console.log("start or fetch memo");
-  console.log(isFetching);
+  console.log({isFetching});
   return {
     type: ActionNames.FETCH_MEMO,
     payload: {
@@ -125,12 +125,8 @@ export const initializeMemo = (
 
 export const makeMemoFromStorage = () => {
   return function(dispatch) {
-    console.log("fetch is success?");
     dispatch(FetchMemo(true));
-
     return fetchMemoFromLocalstorage().then((result: MemoContents[]) => {
-      console.log("fetch is success?");
-      console.log(result);
       dispatch(initializeMemo(result));
       dispatch(FetchMemo(false));
     });
